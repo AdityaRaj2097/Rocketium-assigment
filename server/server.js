@@ -1,13 +1,15 @@
-const express = require('express');
-const app = express();
-const PORT = 3000;
 
+const { Server } = require("socket.io");
+const { setupSocketHandlers } = require("./controller/socketService");
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
+const PORT = 3001;
+const io = new Server(PORT, {
+  cors: {
+    origin: "*", 
+    methods: ["GET", "POST"],
+  },
 });
 
+console.log(`Socket.IO server is running on http://localhost:${PORT}`);
 
-app.listen(PORT, () => {
-    console.log(`Express server is running on http://localhost:${PORT}`);
-});
+setupSocketHandlers(io);
