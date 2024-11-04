@@ -62,6 +62,7 @@ export const useDocumentEditor = (documentId) => {
   };
 
   const handleChange = (newContent) => {
+    console.log("came on  handle change ")
     setContent(newContent);
     sendChanges(documentId, newContent);
   };
