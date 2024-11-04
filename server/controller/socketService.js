@@ -1,5 +1,5 @@
 
-const { findOrCreateDocument } = require("../model/documentModel");
+const { findOrCreateDocument ,releaseDocumentLock} = require("../model/documentModel");
 
 function setupSocketHandlers(io) {
   io.on("connection", (socket) => {
@@ -12,6 +12,14 @@ function setupSocketHandlers(io) {
 
     socket.on("disconnect", () => {
       console.log("Socket disconnected:", socket.id);
+      
+      const unlockedDocument = releaseDocumentLock(socket.id);
+    if (unlockedDocument) {
+      io.to(unlockedDocument.id).emit("lock-status", { locked: false });
+    }
+    
+
+
     });
   });
 }

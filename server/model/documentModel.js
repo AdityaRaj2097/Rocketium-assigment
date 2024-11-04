@@ -12,4 +12,13 @@ function findOrCreateDocument(id) {
   return document;
 }
 
-module.exports = { findOrCreateDocument };
+function releaseDocumentLock(socketId) {
+  const document = documents.find((doc) => doc.lockedBy === socketId);
+  if (document) {
+    document.lockedBy = null;
+    console.log(`Document ${document.id} unlocked by disconnecting socket: ${socketId}`);
+    return document;
+  }
+  return null;
+}
+module.exports = { findOrCreateDocument,releaseDocumentLock };
