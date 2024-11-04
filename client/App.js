@@ -1,5 +1,5 @@
 
-import TextEditor from "../src/component/document";
+import TextEditor from "./docuemtn5";
 
 import {
   BrowserRouter as Router,
@@ -7,7 +7,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
+import "./style.css"
 import { v4 as uuidV4 } from "uuid"
 function App() {
   console.log(" insdine the app2")
