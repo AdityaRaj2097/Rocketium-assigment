@@ -30,10 +30,13 @@ export const useDocumentEditor = (documentId) => {
     };
 
     const handleLockStatus = ({ locked }) => {
-      if (locked && locked !== socket.id) {
-        setIsLocked(true);
+      if (locked === socket.id) {
+        setIsLocked(false);
+      } else {
+        setIsLocked(!!locked);
       }
     };
+    
 
     const handleReceiveChanges = ({ locked, newContent }) => {
       if (locked && locked !== socket.id && quillRef.current) {
@@ -62,7 +65,7 @@ export const useDocumentEditor = (documentId) => {
   };
 
   const handleChange = (newContent) => {
-    console.log("came on  handle change ")
+   
     setContent(newContent);
     sendChanges(documentId, newContent);
   };
